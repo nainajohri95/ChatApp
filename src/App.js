@@ -11,6 +11,8 @@ function App() {
 
   const roomInputRef = useRef(null);
 
+  // const signUserOut = (async = () => {});
+
   if (!isAuth) {
     return (
       <div className="App">
@@ -20,7 +22,7 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       {room ? (
         <Chat room={room} />
       ) : (
@@ -32,7 +34,10 @@ function App() {
           </button>
         </div>
       )}
-    </div>
+      {/* <div className="sign-out">
+        <button onClick={signUserOut}>Sign Out</button>
+      </div> */}
+    </>
   );
 }
 
