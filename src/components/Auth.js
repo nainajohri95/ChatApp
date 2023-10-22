@@ -5,12 +5,15 @@ import "../style/Auth.css";
 
 const cookies = new Cookies();
 
-const Auth = () => {
+const Auth = ({ setIsAuth = () => {} }) => {
   const signInWithGoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      console.log(result);
-      cookies.set("auth-token", result.user.refreshToken);
+      const { user: { refreshToken = null } = {} } = await signInWithPopup(
+        auth,
+        provider
+      );
+      cookies.set("auth-token", refreshToken);
+      setIsAuth(refreshToken);
     } catch (err) {
       console.error(err);
     }

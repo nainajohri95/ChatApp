@@ -8,22 +8,23 @@ import { auth } from "./firebase-config";
 
 const cookies = new Cookies(); // Create a cookies object
 function App() {
-  const [isAuth, setIsAuth] = useState(cookies.get("auth-token"));
+  const [isAuth, setIsAuth] = useState(cookies.get("auth-token") ?? null);
   const [room, setRoom] = useState(null);
 
   const roomInputRef = useRef(null);
 
   const signUserOut = async () => {
-    await signOut(auth);
-    cookies.remove("auth-token");
-    setIsAuth(false);
-    setRoom(null);
+    await signOut(auth).then(() => {
+      cookies.remove("auth-token");
+      setIsAuth(null);
+      setRoom(null);
+    });
   };
 
   if (!isAuth) {
     return (
       <div className="App">
-        <Auth />
+        <Auth setIsAuth={setIsAuth} />
       </div>
     );
   }
