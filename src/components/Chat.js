@@ -38,7 +38,7 @@ export const Chat = (props) => {
     return () => {
       unsuscribe();
     };
-  }, []);
+  }, [messagesRef, room]);
 
   const handleSubmit = async (event) => {
     event?.preventDefault(); //prevent the reloading of form
